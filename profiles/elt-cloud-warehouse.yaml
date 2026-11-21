@@ -1,0 +1,24 @@
+# Preset: land raw data in an elastic cloud warehouse, transform there with SQL.
+project: example-elt
+paradigm: auto            # auto | ELT | ETL | ETLT (explicit value = human override)
+processing: batch         # batch | micro-batch | streaming
+target:
+  type: cloud_warehouse   # cloud_warehouse | lakehouse | onprem_db | file_store
+  engine: snowflake
+  elastic_compute: true
+sources:
+  - {name: orders_db, kind: db}
+  - {name: payments_api, kind: api}
+sensitivity:
+  pii: false
+  mask_before_landing: false
+transforms:
+  style: sql              # sql | code | mixed
+team:
+  sql_strength: high      # high | medium | low
+requirements:
+  keep_raw: true
+  schema_change_frequency: high   # high | low
+  storage_constrained: false
+slas:
+  freshness_hours: 24

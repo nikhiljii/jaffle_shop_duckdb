@@ -1,0 +1,14 @@
+{
+  "note": "Known violations accepted at adoption on 2026-11-21 (jaffle_shop_duckdb, upstream demo project). The gate fails only on NEW violations; fix these over time and remove entries as they pass.",
+  "accepted_failures": {
+    "R4":  "no freshness/volume checks on seeds; add row-count singular tests",
+    "R6":  "no meta.classification on mart columns; architect to define classes, governance to apply",
+    "R8":  "two staging foreign keys untested; add relationships tests",
+    "R9":  "customers.total_order_amount documented but model outputs customer_lifetime_value",
+    "R10": "three staging models lack descriptions",
+    "R13": "all layers in schema main; candidate to accept for a single-file demo database",
+    "R14": "seeds are typed and carry no load metadata; candidate accepted deviation for dbt seeds",
+    "R17": "no reconciliation singular test under tests/",
+    "R18": "CI does not run sqlfluff lint"
+  }
+}

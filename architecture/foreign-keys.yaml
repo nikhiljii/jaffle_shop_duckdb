@@ -1,0 +1,5 @@
+# Machine-readable foreign keys declared by the architect. Rule R8 checks each has a relationships test.
+foreign_keys:
+  - {model: orders,        column: customer_id, to: customers,     field: customer_id}
+  - {model: stg_orders,    column: customer_id, to: stg_customers, field: customer_id}
+  - {model: stg_payments,  column: order_id,    to: stg_orders,    field: order_id}

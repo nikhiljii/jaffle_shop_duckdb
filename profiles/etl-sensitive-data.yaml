@@ -1,0 +1,24 @@
+# Preset: sensitive data must be cleansed/masked before it lands; target has limited compute.
+project: example-etl
+paradigm: auto
+processing: batch
+target:
+  type: onprem_db
+  engine: postgres
+  elastic_compute: false
+sources:
+  - {name: hr_system, kind: db}
+  - {name: payroll_files, kind: file}
+sensitivity:
+  pii: true
+  mask_before_landing: true
+transforms:
+  style: code
+team:
+  sql_strength: medium
+requirements:
+  keep_raw: false
+  schema_change_frequency: low
+  storage_constrained: true
+slas:
+  freshness_hours: 24

@@ -459,3 +459,10 @@ For more information on dbt:
 - Read the [introduction to dbt](https://docs.getdbt.com/docs/introduction)
 - Read the [dbt viewpoint](https://docs.getdbt.com/docs/about/viewpoint)
 - Join the [dbt Community](http://community.getdbt.com/)
+
+
+## pipeline-guardian: agent team on this repo (fork additions)
+
+This fork adds an agent team and an architecture gate on top of the dbt project: see `CLAUDE.md`,
+`.claude/agents/`, `.claude/skills/`, `architecture/` and `docs/GUARDIAN.md`. Original dbt project
+files are untouched. Conformance check: `python -m src.conformance --project . --db jaffle_shop.duckdb --baseline evals/conformance/baseline.json`.

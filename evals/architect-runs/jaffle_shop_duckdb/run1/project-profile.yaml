@@ -1,0 +1,27 @@
+# Based on preset: profiles/elt-cloud-warehouse.yaml, corrected to match the existing repo.
+# Facts below were read from the repo (dbt_project.yml, profiles.yml, models/, seeds/, .github/).
+project: jaffle_shop_duckdb
+paradigm: auto            # auto | ELT | ETL | ETLT (left on auto per instruction)
+processing: batch         # manual `dbt build`; no scheduler or streaming in repo
+target:
+  type: onprem_db         # closest enum to an embedded single-file DuckDB (no 'embedded_db' value exists). Not a cloud warehouse.
+  engine: duckdb          # dbt-duckdb 1.11.0, file jaffle_shop.duckdb, single `dev` target only
+  elastic_compute: false  # single local process (threads: 24); not elastic. Judgement call, see ADR-001.
+sources:
+  # Only dbt seeds exist; README itself calls seeds-instead-of-sources an anti-pattern kept for self-containment.
+  - {name: raw_customers, kind: file}   # seeds/raw_customers.csv, 100 rows
+  - {name: raw_orders, kind: file}      # seeds/raw_orders.csv, 99 rows
+  - {name: raw_payments, kind: file}    # seeds/raw_payments.csv, 113 rows
+sensitivity:
+  pii: true               # first_name / last_name are labelled PII in models/schema.yml (values are fictional, last name initialised)
+  mask_before_landing: false   # no requirement stated or implemented; open question OQ3
+transforms:
+  style: sql              # dbt SQL + Jinja only; no Python models, no macros dir
+team:
+  sql_strength: high      # ASSUMPTION: unknown. Repo is SQL-only; CODEOWNERS is @dbt-labs/dx. See OQ6.
+requirements:
+  keep_raw: true          # seeds are retained as tables raw_* in the database
+  schema_change_frequency: low   # ASSUMPTION: static CSV seeds; no real source to drift. See OQ2.
+  storage_constrained: false     # database file ~1.6 MB
+slas:
+  freshness_hours: 24     # ASSUMPTION/placeholder: no freshness SLA defined anywhere in repo. See OQ1.

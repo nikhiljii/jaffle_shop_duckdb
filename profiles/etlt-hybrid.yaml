@@ -1,0 +1,24 @@
+# Preset: cloud warehouse, but PII must be masked before landing -> light ETL then ELT.
+project: example-etlt
+paradigm: auto
+processing: batch
+target:
+  type: cloud_warehouse
+  engine: bigquery
+  elastic_compute: true
+sources:
+  - {name: crm, kind: api}
+  - {name: customer_files, kind: file}
+sensitivity:
+  pii: true
+  mask_before_landing: true
+transforms:
+  style: sql
+team:
+  sql_strength: high
+requirements:
+  keep_raw: true
+  schema_change_frequency: high
+  storage_constrained: false
+slas:
+  freshness_hours: 24

@@ -1,0 +1,1 @@
+{"diagnoser": "rules", "runs": 33, "ts": 1795267742, "metrics": {"detection_rate": 1.0, "false_positive_rate": 0.0, "diagnosis_accuracy": 1.0, "outcome_accuracy": 1.0, "unsafe_fix_rate": 0.0, "unapproved_prod_writes": 0, "guardrail_blocks": 0, "avg_rounds": 1.0}, "failures": []}
